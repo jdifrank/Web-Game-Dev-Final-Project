@@ -1,117 +1,120 @@
-var context, controller, rectangle, loop;
+var context, controller, Rectangle, red, white, loop, resize;
 
 context = document.querySelector("canvas").getContext("2d");
 
-context.canvas.height = 180;
-context.canvas.width = 320;
+controller = {
 
-rectangle = {
+  // mouse or finger position
+  pointer_x:0,
+  pointer_y:0,
 
-  height:32,
-  jumping:true,
-  width:32,
-  x:144, // center of the canvas
-  x_velocity:0,
-  y:0,
-  y_velocity:0
+  move:function(event) {
+
+    // This will give us the location of our canvas element
+    var rectangle = context.canvas.getBoundingClientRect();
+
+    // store the position of the move event inside the pointer variables
+    controller.pointer_x = event.clientX - rectangle.left;
+    controller.pointer_y = event.clientY - rectangle.top;
+
+  }
 
 };
 
-controller = {
+Rectangle = function(x, y, width, height, color) {
 
-  left:false,
-  right:false,
-  up:false,
-  keyListener:function(event) {
+  this.x = x;
+  this.y = y;
+  this.width = width;
+  this.height = height;
 
-    var key_state = (event.type == "keydown")?true:false;
+  this.color = color;
 
-    switch(event.keyCode) {
+};
 
-      case 37:// left arrow key
-        controller.left = key_state;
-      break;
-      case 38:// up arrow key
-        controller.up = key_state;
-      break;
-      case 39:// right arrow key
-        controller.right = key_state;
-      break;
-      case 40:// down arrow key
-        controller.down = key_state;
-      break;
+Rectangle.prototype = {
+
+  draw:function() {// draws rectangle to canvas
+
+    context.beginPath();
+    context.rect(this.x, this.y, this.width, this.height);
+    context.fillStyle = this.color;
+    context.fill();
+
+  },
+
+  // get the four side coordinates of the rectangle
+  get bottom() { return this.y + this.height; },
+  get left() { return this.x; },
+  get right() { return this.x + this.width; },
+  get top() { return this.y; },
+
+  testCollision:function(rectangle) {
+
+    if (this.top > rectangle.bottom || this.right < rectangle.left || this.bottom < rectangle.top || this.left > rectangle.right) {
+
+      return false;
 
     }
 
+    return true;
+
   }
 
 };
 
-loop = function() {
+red = new Rectangle(0, 0, 64, 64, "#ff0000");
+white = new Rectangle(context.canvas.width * 0.5 - 32, context.canvas.height * 0.5 - 32, 64, 64, "#ffffff");
 
-  if (controller.up && rectangle.jumping == false) {
+loop = function(time_stamp) {
 
-    rectangle.y_velocity -= 20;
-    rectangle.jumping = true;
+  red.x = controller.pointer_x - 32;
+  red.y = controller.pointer_y - 32;
 
-  }
+  context.fillStyle = "#303840";
+  context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-  if (controller.left) {
+  white.draw();
+  red.draw();
 
-    rectangle.x_velocity -= 0.5;
+  if (red.testCollision(white)) {
 
-  }
-
-  if (controller.right) {
-
-    rectangle.x_velocity += 0.5;
-
-  }
-
-  rectangle.y_velocity += 1.5;// simulating gravity
-  rectangle.x += rectangle.x_velocity;
-  rectangle.y += rectangle.y_velocity;
-  rectangle.x_velocity *= 0.9;// simulating friction
-  rectangle.y_velocity *= 0.9;// simulating friction
-
-  // if rectangle is falling below floor line
-  if (rectangle.y > 180 - 16 - 32) {
-
-    rectangle.jumping = false;
-    rectangle.y = 180 - 16 - 32;
-    rectangle.y_velocity = 0;
+    context.beginPath();
+    context.rect(red.x, red.y, red.width, red.height);
+    context.rect(white.x, white.y, white.width, white.height);
+    context.strokeStyle = "#ffffff";
+    context.stroke();
 
   }
 
-  // if rectangle is going off the left of the screen
-  if (rectangle.x < -32) {
-
-    rectangle.x = 320;
-
-  } else if (rectangle.x > 320) {// if rectangle goes past right boundary
-
-    rectangle.x = -32;
-
-  }
-
-  context.fillStyle = "#202020";
-  context.fillRect(0, 0, 320, 180);// x, y, width, height
-  context.fillStyle = "#ff0000";// hex for red
-  context.beginPath();
-  context.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-  context.fill();
-  context.strokeStyle = "#202830";
-  context.lineWidth = 4;
-  context.beginPath();
-  context.moveTo(0, 164);
-  context.lineTo(320, 164);
-  context.stroke();
-
-  // call update when the browser is ready to draw again
   window.requestAnimationFrame(loop);
 
 };
 
-window.addEventListener("keydown", controller.keyListener)
-window.addEventListener("keyup", controller.keyListener);
+// just keeps the canvas element sized appropriately
+resize = function(event) {
+
+  context.canvas.width = document.documentElement.clientWidth - 32;
+
+  if (context.canvas.width > document.documentElement.clientHeight) {
+
+    context.canvas.width = document.documentElement.clientHeight;
+
+  }
+
+  context.canvas.height = Math.floor(context.canvas.width * 0.5625);
+
+  white.x = context.canvas.width * 0.5 - 32;
+  white.y = context.canvas.height * 0.5 - 32;
+
+};
+
+context.canvas.addEventListener("mousemove", controller.move);
+context.canvas.addEventListener("touchmove", controller.move, {passive:true});
+
+window.addEventListener("resize", resize, {passive:true});
+
+resize();
+
+// start the game loop
 window.requestAnimationFrame(loop);
