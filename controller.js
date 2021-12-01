@@ -1,7 +1,8 @@
-var context, controller, Rectangle, red, white, loop, resize;
+var context, controller, Rectangle, red, white, loop, resize, collisions = 0;
 
 context = document.querySelector("canvas").getContext("2d");
 
+/*
 controller = {
 
   // mouse or finger position
@@ -20,6 +21,7 @@ controller = {
   }
 
 };
+*/
 
 Rectangle = function(x, y, width, height, color) {
 
@@ -31,6 +33,13 @@ Rectangle = function(x, y, width, height, color) {
   this.color = color;
 
 };
+
+function getRandomX(){
+  return Math.floor(Math.random()*906);
+}
+function getRandomY(){
+  return Math.floor(Math.random()*481);
+}
 
 Rectangle.prototype = {
 
@@ -68,8 +77,8 @@ white = new Rectangle(context.canvas.width * 0.5 - 32, context.canvas.height * 0
 
 loop = function(time_stamp) {
 
-  red.x = controller.pointer_x - 32;
-  red.y = controller.pointer_y - 32;
+  red.x = context.canvas.width * 0.5 - 42;
+  red.y = context.canvas.height * 0.5 - 32;
 
   context.fillStyle = "#303840";
   context.fillRect(0, 0, context.canvas.width, context.canvas.height);
@@ -84,6 +93,8 @@ loop = function(time_stamp) {
     context.rect(white.x, white.y, white.width, white.height);
     context.strokeStyle = "#ffffff";
     context.stroke();
+    collisions ++;
+    document.getElementById("count").innerHTML = 'Collision <br> Count: ' + collisions;
 
   }
 
@@ -109,8 +120,8 @@ resize = function(event) {
 
 };
 
-context.canvas.addEventListener("mousemove", controller.move);
-context.canvas.addEventListener("touchmove", controller.move, {passive:true});
+//context.canvas.addEventListener("mousemove", controller.move);
+//context.canvas.addEventListener("touchmove", controller.move, {passive:true});
 
 window.addEventListener("resize", resize, {passive:true});
 
@@ -121,6 +132,7 @@ window.requestAnimationFrame(loop);
 
 
 // Timer functionality 
+/* 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
@@ -234,3 +246,4 @@ function setCircleDasharray() {
     .getElementById("base-timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
 }
+*/
