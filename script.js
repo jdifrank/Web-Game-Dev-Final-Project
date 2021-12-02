@@ -2,11 +2,20 @@ let canvas = document.getElementById("myCanvas");
 let ctx = canvas.getContext("2d");
 
 let objArray = [];
+<<<<<<< Updated upstream
 let bumped = false;
 let clearCanv = true;
 let Balls = false;
 let collisionCnt = 0;
 
+=======
+let paused = false;
+let bumped = false;
+
+let clearCanv = true;
+
+let Balls = false;
+>>>>>>> Stashed changes
 
 let lastTime = (new Date()).getTime();
 let currentTime = 0;
@@ -71,10 +80,13 @@ function ballCollision() {
                 ob1.dy = dy1F;                
                 ob2.dx = dx2F;                
                 ob2.dy = dy2F;
+<<<<<<< Updated upstream
 
                 collisionCnt++;
                 //console.log(collisionCnt);
                 document.getElementById("count").innerHTML= "Collision Count: " + collisionCnt;
+=======
+>>>>>>> Stashed changes
           
                 staticCollision(ob1, ob2)
                 
@@ -139,7 +151,10 @@ function drawObjects() {
     lastTime = currentTime;
     window.requestAnimationFrame(draw);
 }
+<<<<<<< Updated upstream
 draw();
+=======
+>>>>>>> Stashed changes
 
 
 // manually spawn the few large ones that
@@ -151,6 +166,7 @@ for (i = 0; i<numStartingBalls; i++) {
     temp.dy = randomDy() / 12;
     objArray[objArray.length] = temp;
 }
+<<<<<<< Updated upstream
 
 
 //timer
@@ -265,3 +281,6 @@ function setCircleDasharray() {
     .getElementById("base-timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
 }
+=======
+document.getElementById("game").addEventListener('submit', draw());
+>>>>>>> Stashed changes
