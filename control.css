@@ -1,136 +1,49 @@
-* {
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-  }
+body {
+  background-color: #202830;
+  text-align: center;
+}
 
-  
-  html, body {
-    height:100%;
-    width:100%;
-  }
-  
-  body {
-    align-content:space-around;
-    background-color:#202830;
-    color:#ffffff;
-    display:grid;
-    justify-content:center;
-    
-  }
-  
-  canvas {
-    background-color:#202830;
-    padding-bottom: 25px;
-    margin-top: -75px;
-    
-    
-  }
-  .btn{
-    
-    padding: 5px 10px;
-    text-align: center;
-    font-family: sans-serif;
-    display: inline-block;
-    font-size: 18px;
-    
-    cursor: pointer;
-    border: none;
-    background-color:rgb(65, 184, 131) ;
-    margin-bottom: 15px;
-    
-    
-  }
-  #cnt
-  {
-    text-align: center;
-    font-family: sans-serif;
-  font-weight:lighter;
-  background-color:rgb(65, 184, 131) ;
-  padding: 5px 10px;
-  border: none;
-  font-size: 18px;
-  
-  color:black;
+#title {
+  color: #8d8080;
+  font-size: 200%;
+  font-style: normal;
+  margin: 1px;
+  border: 1px;
+}
 
-  }
-  div.counter
-  {
+#balls {
+  margin-top: 5px;
+}
+
+#myCanvas {
+  margin-top: -20px;
+  border:1px solid black;
+}
+#game, label, p {
+  color:#ffffff;
+}
+
+
+div.counter {
     text-align: right;
     align-items: left;
     font-family: sans-serif;
-  font-weight:lighter;
-  display: inline-block;
+    font-weight:lighter;
+    display: inline-block;
     
     margin-top: -125px;
     margin-bottom: 125px;
     margin-left: -50px;
     margin-right: 50px;
     
-  padding-left: 0px;
-  padding-right: 0px;
-  font-size: small;
-  
-    
-  
-  }
-  
-  div.form
-{
-    
-    text-align: left;
-    align-items: center;
+    padding-left: 0px;
+    padding-right: 0px;
     font-size: small;
-   
-
-
-}
-form
-{
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    background-color:#1a2831;
-    font-family: sans-serif;
-  font-weight:lighter;
-  font-size: small;
-}
-p
-{
-  
-  text-align: left;
-  background-color: #1a2831;
-  
-  padding-left: 0px;
-  padding-right: 0px;
-  font-family: sans-serif;
-  font-weight:lighter;
-  font-size: small;
-}
-h4
-{
-  font-family: sans-serif;
-  font-weight:lighter;
-  
-  text-align: center;
-  padding-top: 20px;
-  
-  font-size: 25px;
-  color: red;
-  margin-bottom: 5px;
-
-  
-  
-}
-
-div.timer
-{
-    
+  }
+  div.timer {
     font-family: sans-serif;
     display: grid;
     height:0px;
-    
     place-items:center;
   }
   
@@ -140,7 +53,6 @@ div.timer
     width: 100px;
     height: 100px;
     top: 95px;
-    
   }
   
   .base-timer__svg {
@@ -189,4 +101,7 @@ div.timer
     justify-content: center;
     font-size: 25px;
     margin-bottom: 10px;
+  }
+  .count{
+    align-items: center;
   }
