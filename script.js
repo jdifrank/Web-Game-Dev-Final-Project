@@ -73,7 +73,6 @@ function ballCollision() {
                 ob2.dy = dy2F;
 
                 collisionCnt++;
-                //console.log(collisionCnt);
                 document.getElementById("count").innerHTML= "Collision Count: " + collisionCnt;
           
                 staticCollision(ob1, ob2)
@@ -93,12 +92,6 @@ function staticCollision(ob1, ob2, emergency=false)
     let smallerObject = ob1.radius < ob2.radius ? ob1 : ob2;
     let biggerObject = ob1.radius > ob2.radius ? ob1 : ob2;
 
-    // When things go normally, this line does not execute.
-    // "Emergency" is when staticCollision has run, but the collision
-    // still hasn't been resolved. Which implies that one of the objects
-    // is likely being jammed against a corner, so we must now move the OTHER one instead.
-    // in other words: this line basically swaps the "little guy" role, because
-    // the actual little guy can't be moved away due to being blocked by the wall.
     if (emergency) [smallerObject, biggerObject] = [biggerObject, smallerObject]
     
     let theta = Math.atan2((biggerObject.y - smallerObject.y), (biggerObject.x - smallerObject.x));
@@ -106,8 +99,6 @@ function staticCollision(ob1, ob2, emergency=false)
     smallerObject.y -= overlap * Math.sin(theta); 
 
     if (distance(ob1, ob2) < ob1.radius + ob2.radius) {
-        // we don't want to be stuck in an infinite emergency.
-        // so if we have already run one emergency round; just ignore the problem.
         if (!emergency) staticCollision(ob1, ob2, true)
     }
 }
@@ -139,20 +130,14 @@ function drawObjects() {
     lastTime = currentTime;
     window.requestAnimationFrame(draw);
 }
+
 document.getElementById("game").addEventListener("submit", function (e){
     e.preventDefault();
     startTimer();
     draw();
-    document.getElementById("opt1").disabled=true;
-    document.getElementById("opt2").disabled=true;
-    document.getElementById("opt3").disabled=true;
-    document.getElementById("opt4").disabled=true;
 });
 
 
-
-// manually spawn the few large ones that
-// start with no velocity. (lazy code)
 Balls = true;
 for (i = 0; i<numStartingBalls; i++) {
     let temp = new Ball(randomX(), randomY(), randomRadius());
@@ -207,7 +192,6 @@ document.getElementById("app").innerHTML = `
   )}</span>
 </div>
 `;
-//startTimer();
 function onTimesUp() {
   clearInterval(timerInterval);
   for (let obj in objArray) {
