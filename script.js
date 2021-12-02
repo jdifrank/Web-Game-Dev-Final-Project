@@ -139,7 +139,16 @@ function drawObjects() {
     lastTime = currentTime;
     window.requestAnimationFrame(draw);
 }
-draw();
+document.getElementById("game").addEventListener("submit", function (e){
+    e.preventDefault();
+    startTimer();
+    draw();
+    document.getElementById("opt1").disabled=true;
+    document.getElementById("opt2").disabled=true;
+    document.getElementById("opt3").disabled=true;
+    document.getElementById("opt4").disabled=true;
+});
+
 
 
 // manually spawn the few large ones that
@@ -198,7 +207,7 @@ document.getElementById("app").innerHTML = `
   )}</span>
 </div>
 `;
-startTimer();
+//startTimer();
 function onTimesUp() {
   clearInterval(timerInterval);
   for (let obj in objArray) {
@@ -207,11 +216,11 @@ function onTimesUp() {
     }
     console.log(document.querySelector('input[name="guess_range"]:checked').value);
     if(document.querySelector('input[name="guess_range"]:checked').value == '1-3' && collisionCnt > 0 && collisionCnt < 4) alert("You Win!");
-    if(document.querySelector('input[name="guess_range"]:checked').value == '4-6' && collisionCnt > 3 && collisionCnt < 7) alert("You Win!");
-    if(document.querySelector('input[name="guess_range"]:checked').value == '7-9' && collisionCnt > 6 && collisionCnt < 10) alert("You Win!");
-    if(document.querySelector('input[name="guess_range"]:checked').value == '10+' && collisionCnt > 9 ) alert("You Win!");
+    else if(document.querySelector('input[name="guess_range"]:checked').value == '4-6' && collisionCnt > 3 && collisionCnt < 7) alert("You Win!");
+    else if(document.querySelector('input[name="guess_range"]:checked').value == '7-9' && collisionCnt > 6 && collisionCnt < 10) alert("You Win!");
+    else if(document.querySelector('input[name="guess_range"]:checked').value == '10+' && collisionCnt > 9 ) alert("You Win!");
     else alert("Sorry \nbetter luck next time!");
-
+    location.reload();
 }
 function startTimer() {
   timerInterval = setInterval(() => {
