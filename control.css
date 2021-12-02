@@ -4,11 +4,7 @@ body {
 }
 
 #title {
-<<<<<<< Updated upstream
-  color: #8d8080;
-=======
   color: #ffffff;
->>>>>>> Stashed changes
   font-size: 200%;
   font-style: normal;
   margin: 1px;
@@ -23,7 +19,6 @@ body {
   margin-top: -20px;
   border:1px solid black;
 }
-<<<<<<< Updated upstream
 #game, label, p {
   color:#ffffff;
 }
@@ -41,8 +36,20 @@ div.counter {
     margin-left: -50px;
     margin-right: 50px;
     
-    padding-left: 0px;
-    padding-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  font-size: small;
+  align-content:space-around;
+  
+    
+  
+  }
+  
+  div.form
+{
+    
+    text-align: left;
+    align-items: center;
     font-size: small;
   }
   div.timer {
@@ -110,8 +117,6 @@ div.counter {
   .count{
     align-items: center;
   }
-=======
 #form {
   color:#ffffff;
 }
->>>>>>> Stashed changes

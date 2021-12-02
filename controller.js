@@ -131,8 +131,13 @@ resize();
 window.requestAnimationFrame(loop);
 
 
+
+
 // Timer functionality 
-/* 
+
+
+
+ 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
@@ -181,7 +186,9 @@ document.getElementById("app").innerHTML = `
 </div>
 `;
 
-startTimer();
+//startTimer();
+
+
 
 function onTimesUp() {
   clearInterval(timerInterval);
@@ -194,6 +201,7 @@ function startTimer() {
     document.getElementById("base-timer-label").innerHTML = formatTime(
       timeLeft
     );
+
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
@@ -202,6 +210,12 @@ function startTimer() {
     }
   }, 1000);
 }
+
+
+document.getElementById('game').addEventListener('submit',function(e){
+  e.preventDefault();
+  startTimer();
+});
 
 function formatTime(time) {
   const minutes = Math.floor(time / 60);
@@ -246,4 +260,4 @@ function setCircleDasharray() {
     .getElementById("base-timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
 }
-*/
+
